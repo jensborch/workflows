@@ -121,6 +121,25 @@ jobs:
 * vars.RELEASE_APP_ID
 * secrets.RELEASE_APP_PRIVATE_KEY
 
+## maven-build.yml
+
+```yml
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  call-workflow:
+    uses: jensborch/workflows/.github/workflows/maven-build.yml@main
+    secrets: inherit
+    with:
+        java-version: 11
+```
+
 ### scorecard.yml
 
 ```yml

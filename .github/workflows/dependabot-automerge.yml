@@ -1,4 +1,4 @@
-name: "Dependabot Automerge"
+name: 'Dependabot Automerge'
 
 on:
   workflow_call:

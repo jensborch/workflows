@@ -1,4 +1,4 @@
-name: Publish
+name: 'Gradle Publish'
 
 on:
   workflow_call:
@@ -21,6 +21,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: ${{ inputs.java-version }}
+          cache: 'gradle'
       - name: Checkout Branch
         uses: actions/checkout@v4
       - name: Get the version

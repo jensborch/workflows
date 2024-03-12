@@ -1,4 +1,4 @@
-name: 'Gradle Build'
+name: 'Maven Build'
 
 on:
   workflow_call:
@@ -20,13 +20,9 @@ jobs:
         with:
           distribution: "temurin"
           java-version: ${{ inputs.java-version }}
-          cache: 'gradle'
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v2
+          cache: 'maven'
       - name: Build
-        uses: gradle/gradle-build-action@v3
-        with:
-          arguments: build
+        run: ./mvnw --batch-mode --update-snapshots verify
       - uses: codecov/codecov-action@v4
         with:
           verbose: true
