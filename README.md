@@ -35,10 +35,11 @@ jobs:
 name: "Dependabot Automerge"
 
 on:
-  workflow_call:
+  pull_request:
+    branches: [ master ]
 
 jobs:
-  scan:
+  automerge:
     uses: jensborch/workflows/.github/workflows/dependabot-automerge.yml.yml@main
     secrets: inherit
 ```
@@ -61,7 +62,7 @@ on:
     types: [opened, reopened]
 
 jobs:
-  call-workflow:
+  build:
     uses: jensborch/workflows/.github/workflows/gradle-build.yml@main
     secrets: inherit
     with:
@@ -83,7 +84,7 @@ on:
     types: [closed]
 
 jobs:
-  call-workflow:
+  publish:
     uses: jensborch/workflows/.github/workflows/gradle-publish.yml@main
     secrets: inherit
     with:
@@ -110,7 +111,7 @@ on:
       - 'releases/**'
 
 jobs:
-  call-workflow:
+  release:
     uses: jensborch/workflows/.github/workflows/gradle-release.yml@main
     secrets: inherit
     with:
@@ -133,7 +134,7 @@ on:
     types: [opened, reopened]
 
 jobs:
-  call-workflow:
+  build:
     uses: jensborch/workflows/.github/workflows/maven-build.yml@main
     secrets: inherit
     with:
