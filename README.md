@@ -139,24 +139,3 @@ jobs:
     with:
         java-version: 11
 ```
-
-### scorecard.yml
-
-```yml
-name: Scorecard supply-chain security
-
-on:
-  # For Branch-Protection check. Only the default branch is supported. See
-  # https://github.com/ossf/scorecard/blob/main/docs/checks.md#branch-protection
-  branch_protection_rule:
-  # To guarantee Maintained check is occasionally updated. See
-  # https://github.com/ossf/scorecard/blob/main/docs/checks.md#maintained
-  schedule:
-    - cron: '34 3 * * 2'
-  push:
-    branches: ['master']
-
-jobs:
-  call-workflow:
-    uses: jensborch/workflows/.github/workflows/scorecard.yml@main
-```
