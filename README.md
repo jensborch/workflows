@@ -26,7 +26,7 @@ on:
 
 jobs:
   scan:
-    uses: jensborch/.github/workflows/codeql-analysis.yml.yml@main
+    uses: jensborch/workflows/.github/workflows/codeql-analysis.yml.yml@main
 ```
 
 ## dependabot-automerge.yml
@@ -39,7 +39,7 @@ on:
 
 jobs:
   scan:
-    uses: jensborch/.github/workflows/dependabot-automerge.yml.yml@main
+    uses: jensborch/workflows/.github/workflows/dependabot-automerge.yml.yml@main
     secrets: inherit
 ```
 
@@ -62,7 +62,7 @@ on:
 
 jobs:
   call-workflow:
-    uses: jensborch/.github/workflows/gradle-build.yml@main
+    uses: jensborch/workflows/.github/workflows/gradle-build.yml@main
     secrets: inherit
     with:
         java-version: 8
@@ -84,7 +84,7 @@ on:
 
 jobs:
   call-workflow:
-    uses: jensborch/.github/workflows/gradle-publish.yml@main
+    uses: jensborch/workflows/.github/workflows/gradle-publish.yml@main
     secrets: inherit
     with:
         java-version: 8
@@ -111,7 +111,7 @@ on:
 
 jobs:
   call-workflow:
-    uses: jensborch/.github/workflows/gradle-release.yml@main
+    uses: jensborch/workflows/.github/workflows/gradle-release.yml@main
     secrets: inherit
     with:
         java-version: 8
