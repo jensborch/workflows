@@ -7,7 +7,12 @@ on:
   workflow_call:
 
 # Declare default permissions as read only.
-permissions: read-all
+permissions:
+  actions: read
+  contents: read
+  deployments: read
+  packages: read  
+  security-events: read
 
 jobs:
   analysis:
