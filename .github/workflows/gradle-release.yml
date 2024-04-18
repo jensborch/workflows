@@ -35,7 +35,7 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
       - name: Set Version
         run: |
-          echo "version=$(echo ${{ github.ref }} | sed 's/refs\/heads\/releases\///')" >> $GITHUB_ENV
+          echo "version=$(echo ${{ github.ref }} | sed 's/refs\/heads\/releases\///')" >> "$GITHUB_ENV"
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v3
       - name: Bump Version
