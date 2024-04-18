@@ -43,6 +43,9 @@ on:
 jobs:
   automerge:
     uses: jensborch/workflows/.github/workflows/dependabot-automerge.yml.yml@main
+    permissions:
+      pull-requests: write
+      contents: write    
     secrets: inherit
 ```
 
@@ -89,6 +92,8 @@ jobs:
   publish:
     uses: jensborch/workflows/.github/workflows/gradle-publish.yml@main
     secrets: inherit
+    permissions:
+      contents: write
     with:
         java-version: 8
 ```

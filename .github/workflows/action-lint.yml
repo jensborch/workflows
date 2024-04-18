@@ -1,5 +1,5 @@
 
-name: Lint GitHub Actions workflows
+name: GitHub Actions lint
 on:
   workflow_call:
   push:
