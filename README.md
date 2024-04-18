@@ -1,6 +1,8 @@
+[![Lint](https://github.com/jensborch/workflows/actions/workflows/action-lint.yml/badge.svg)](https://github.com/jensborch/workflows/actions/workflows/action-lint.yml)
+
 # Reusable workflows
 
-Reusable Github workflows for Gradle. Use as follows:
+Reusable Github workflows for Gradle, Maven, Code scanning, Dependabot etc..
 
 ## codeql-analysis.yml
 
