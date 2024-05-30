@@ -1,4 +1,4 @@
-name: "Gradle Release"
+name: "Maven Release"
 
 on:
   workflow_call:
@@ -22,7 +22,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: ${{ inputs.java-version }}
-          cache: "gradle"
+          cache: "maven"
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v1
         id: app-token
@@ -36,12 +36,8 @@ jobs:
       - name: Set Version
         run: |
           echo "version=$(echo ${{ github.ref }} | sed 's/refs\/heads\/releases\///')" >> "$GITHUB_ENV"
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v3
       - name: Bump Version
-        uses: gradle/gradle-build-action@v3
-        with:
-          arguments: bumpVersion -PnewVersion=${{ env.version }}
+        run: mvn versions:set -DnewVersion=${{ env.version }}
       - name: Configure Git Author
         run: |
           git config user.name "GitHub Actions"

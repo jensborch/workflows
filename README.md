@@ -11,9 +11,9 @@ name: 'Code Scanning - Action'
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
   schedule:
     #        ┌───────────── minute (0 - 59)
     #        │  ┌───────────── hour (0 - 23)
@@ -29,6 +29,10 @@ on:
 jobs:
   scan:
     uses: jensborch/workflows/.github/workflows/codeql-analysis.yml.yml@main
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
 ```
 
 ## dependabot-automerge.yml
@@ -62,14 +66,11 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    types: [opened, reopened]
+  workflow_dispatch:
 
 jobs:
   build:
     uses: jensborch/workflows/.github/workflows/gradle-build.yml@main
-    secrets: inherit
     with:
         java-version: 8
 ```
@@ -107,7 +108,7 @@ jobs:
 * secrets.SIGNING_KEY
 * secrets.SIGNING_PASSWORD
 
-### gradle-release.yml
+## gradle-release.yml
 
 ```yml
 name: Release
@@ -121,9 +122,14 @@ jobs:
   release:
     uses: jensborch/workflows/.github/workflows/gradle-release.yml@main
     secrets: inherit
+    permissions:
+      contents: write
+      pull-requests: write
     with:
         java-version: 8
 ```
+
+### Inputs, variables and secrets
 
 * inputs.java-version
 * vars.RELEASE_APP_ID
@@ -136,9 +142,7 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    types: [opened, reopened]
+  workflow_dispatch:  
 
 jobs:
   build:
@@ -147,3 +151,68 @@ jobs:
     with:
         java-version: 11
 ```
+
+## maven-publish.yml
+
+```yml
+name: Build
+
+on:
+  push:
+
+jobs:
+  build:
+    uses: jensborch/workflows/.github/workflows/maven-build.yml@main
+    secrets: inherit
+    with:
+        java-version: 11
+```
+
+## maven-publish.yml
+
+```yml
+name: Publish
+
+on:
+  push:
+
+jobs:
+  build:
+    uses: jensborch/workflows/.github/workflows/maven-publish.yml@main
+    secrets: inherit
+    permissions:
+      contents: write
+    with:
+        java-version: 11
+```
+
+### Inputs, variables and secrets
+
+* secrets.SONATYPE_USERNAME
+* secrets.SONATYPE_PASSWORD
+* secrets.SIGNING_PASSWORD
+
+## maven-release.yml
+
+```yml
+name: Release
+
+on:
+  push:
+
+jobs:
+  build:
+    uses: jensborch/workflows/.github/workflows/maven-release.yml@main
+    secrets: inherit
+    permissions:
+      contents: write
+      pull-requests: write
+    with:
+        java-version: 11
+```
+
+### Inputs, variables and secrets
+
+* inputs.java-version
+* vars.RELEASE_APP_ID
+* secrets.RELEASE_APP_PRIVATE_KEY

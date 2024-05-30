@@ -6,11 +6,22 @@ on:
       java-version:
         required: true
         type: number
+      release-branch:
+        default: "releases"
+        required: false
+        type: string
+      main-branch:
+        default: "master"
+        required: false
+        type: string
+
+permissions:
+  contents: write
 
 jobs:
   build:
     name: Publish
-    if: contains(github.head_ref, 'releases/') && github.event.pull_request.merged == true && github.base_ref == 'master'
+    if: contains(format('{0}/', inputs.release-branch), github.ref) && github.event.pull_request.merged == true && github.base_ref == ${{inputs.main-branch}}
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
@@ -29,10 +40,13 @@ jobs:
       - name: Get the version
         id: get_version
         run: echo "version=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
+      - name: Create GitHub Release
+        run: gh release create ${{ steps.get_version.outputs.version }} --verify-tag --title ${{ steps.get_version.outputs.version }} --notes "Release version ${{ steps.get_version.outputs.version }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to the Maven Central Repository
         run: mvn --batch-mode deploy
         env:
           OSSRH_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.SONATYPE_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.SIGNING_PASSWORD }}
-

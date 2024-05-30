@@ -1,4 +1,4 @@
-name: 'Gradle Build'
+name: "Gradle Build"
 
 on:
   workflow_call:
@@ -13,14 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.client_payload.ref }}
-      - name: Set up JDK 8
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: ${{ inputs.java-version }}
-          cache: 'gradle'
+          cache: "gradle"
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v3
       - name: Build

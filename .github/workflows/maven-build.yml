@@ -1,4 +1,4 @@
-name: 'Maven Build'
+name: "Maven Build"
 
 on:
   workflow_call:
@@ -13,14 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.client_payload.ref }}
-      - name: Set up JDK 8
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: ${{ inputs.java-version }}
-          cache: 'maven'
+          cache: "maven"
       - name: Build
         run: ./mvnw --batch-mode --update-snapshots verify
       - uses: codecov/codecov-action@v4
