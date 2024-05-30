@@ -4,37 +4,6 @@
 
 Reusable Github workflows for Gradle, Maven, Code scanning, Dependabot etc..
 
-## codeql-analysis.yml
-
-```yml
-name: 'Code Scanning - Action'
-
-on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
-  schedule:
-    #        ┌───────────── minute (0 - 59)
-    #        │  ┌───────────── hour (0 - 23)
-    #        │  │ ┌───────────── day of the month (1 - 31)
-    #        │  │ │ ┌───────────── month (1 - 12 or JAN-DEC)
-    #        │  │ │ │ ┌───────────── day of the week (0 - 6 or SUN-SAT)
-    #        │  │ │ │ │
-    #        │  │ │ │ │
-    #        │  │ │ │ │
-    #        *  * * * *
-    - cron: '30 1 * * 0'
-
-jobs:
-  scan:
-    uses: jensborch/workflows/.github/workflows/codeql-analysis.yml.yml@main
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
-```
-
 ## dependabot-automerge.yml
 
 ```yml
