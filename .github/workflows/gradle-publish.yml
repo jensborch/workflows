@@ -21,7 +21,7 @@ permissions:
 jobs:
   publish:
     name: Publish
-    if: contains(format('{0}/', inputs.release-branch), github.ref) && github.event.pull_request.merged == true && github.base_ref == ${{inputs.main-branch}}
+    if: contains(format('{0}/', inputs.release-branch), github.ref) && github.event.pull_request.merged == true && github.base_ref == inputs.main-branch
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
