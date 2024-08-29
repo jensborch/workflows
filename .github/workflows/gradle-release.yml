@@ -17,12 +17,6 @@ jobs:
     if: github.event.created
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: ${{ inputs.java-version }}
-          cache: "gradle"
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v1
         id: app-token
@@ -36,6 +30,12 @@ jobs:
       - name: Set Version
         run: |
           echo "version=$(echo ${{ github.ref }} | sed 's/refs\/heads\/releases\///')" >> "$GITHUB_ENV"
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: ${{ inputs.java-version }}
+          cache: "gradle"          
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v3
       - name: Bump Version
