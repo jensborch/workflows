@@ -21,7 +21,7 @@ permissions:
 jobs:
   publish:
     name: Publish
-    if: contains(format('{0}/', inputs.release-branch), github.ref) && github.base_ref == inputs.main-branch
+    if: contains(format('{0}/', inputs.release-branch), github.ref)
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
