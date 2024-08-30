@@ -6,14 +6,6 @@ on:
       java-version:
         required: true
         type: number
-      release-branch:
-        default: "releases"
-        required: false
-        type: string
-      main-branch:
-        default: "master"
-        required: false
-        type: string
 
 permissions:
   contents: write
@@ -21,7 +13,6 @@ permissions:
 jobs:
   build:
     name: Publish
-    if: contains(format('{0}/', inputs.release-branch), github.ref) && github.event.pull_request.merged == true && github.base_ref == inputs.main-branch
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
