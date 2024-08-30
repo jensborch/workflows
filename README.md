@@ -54,9 +54,8 @@ jobs:
 name: Publish
 
 on:
-  pull_request:
+  push:
     branches: [master]
-    types: [closed]
 
 jobs:
   publish:
@@ -128,6 +127,7 @@ name: Build
 
 on:
   push:
+    branches: [master]
 
 jobs:
   build:
