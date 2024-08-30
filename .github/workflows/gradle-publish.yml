@@ -15,14 +15,14 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: ${{ inputs.java-version }}
-          cache: "gradle"
-      - name: Checkout Branch
-        uses: actions/checkout@v4
+          cache: "gradle"        
       - name: Get the version
         id: get_version
         run: echo "version=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
