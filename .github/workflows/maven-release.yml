@@ -17,12 +17,6 @@ jobs:
     if: github.event.created
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: ${{ inputs.java-version }}
-          cache: "maven"
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v1
         id: app-token
@@ -35,7 +29,13 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
       - name: Set Version
         run: |
-          echo "version=$(echo ${{ github.ref }} | sed 's/refs\/heads\/releases\///')" >> "$GITHUB_ENV"
+          echo "version=$(echo ${{ github.ref }} | sed 's/refs\/heads\/release\///')" >> "$GITHUB_ENV"
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: ${{ inputs.java-version }}
+          cache: "maven"
       - name: Bump Version
         run: mvn versions:set -DnewVersion=${{ env.version }}
       - name: Configure Git Author
@@ -46,7 +46,7 @@ jobs:
         run: |
           git commit -am "Bump version to ${{ env.version }}"
           git tag -a v${{ env.version }} -m "Release version ${{ env.version }}"
-          git push -u origin releases/${{ env.version }} --follow-tags
+          git push -u origin release/${{ env.version }} --follow-tags
       - name: Create Pull Request
         run: gh pr create -B master --title 'Release version ${{ env.version }}' --body 'This pull request bumps the version to ${{ env.version }}'
         env:

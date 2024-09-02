@@ -11,10 +11,14 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  publish:
     name: Publish
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -26,8 +30,6 @@ jobs:
           server-password: OSSRH_TOKEN # env variable for token in deploy
           gpg-private-key: ${{ secrets.SIGNING_KEY }} # Value of the GPG private key to import
           gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
-      - name: Checkout Branch
-        uses: actions/checkout@v4
       - name: Get the version
         id: get_version
         run: echo "version=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
